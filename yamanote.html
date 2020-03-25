@@ -1,6 +1,5 @@
 <html>
 <body>
-<canvas id="canvas"></canvas>
 <script>
 const stations = [
 ["東京", 0.0],
@@ -38,14 +37,15 @@ const totalDistance = 34.5;
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 canvas.width = 900;
-canvas.height = 900;
+canvas.height = 800;
 document.body.appendChild(canvas);
 
-const centerX = 400;
+const centerX = 420;
 const centerY = 400;
 const radius = 350;
 const circleSize = 10;
 
+fontSize = 14;
 context.font = "14px sans-serif";
 context.strokeStyle = 'green';
 context.lineWidth = 10.0;
@@ -66,8 +66,23 @@ stations.forEach(function(s) {
   context.fill();
   context.stroke();
   context.fillStyle = 'black';
-  // str = s[0] + ' (' + s[1] + ')';
-  context.fillText(s[0], x + circleSize, y - circleSize);
+
+  let offsetX = 0;
+  let offsetY = 0;
+  if (angle >= 1.5 * Math.PI) {
+    offsetX += circleSize;
+    offsetY -= circleSize;
+  } else if (angle >= Math.PI) {
+    offsetX -= (s[0].length * fontSize + circleSize);
+    offsetY -= circleSize;
+  } else if (angle >= 0.5 * Math.PI) {
+    offsetX -= (s[0].length * fontSize + circleSize);
+    offsetY += circleSize * 2;
+  } else {
+    offsetX += circleSize;
+    offsetY += circleSize * 2;
+  }
+  context.fillText(s[0], x + offsetX, y + offsetY);
 });
 
 </script>
