@@ -1,5 +1,6 @@
 <html>
 <body>
+<canvas id="main" width="900" height="800"></canvas>
 <script>
 const stations = [
 ["東京", 0.0],
@@ -34,15 +35,14 @@ const stations = [
 ["神田", 33.2],
 ];
 const totalDistance = 34.5;
-const canvas = document.createElement('canvas');
-const context = canvas.getContext('2d');
-canvas.width = 900;
-canvas.height = 800;
-document.body.appendChild(canvas);
+const canvas = document.getElementById("main");
+canvas.setAttribute("width", document.documentElement.clientWidth);
+canvas.setAttribute("height", document.documentElement.clientHeight);
 
-const centerX = 420;
-const centerY = 400;
-const radius = 350;
+const context = canvas.getContext('2d');
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+const radius = Math.min(centerX, centerY) * 0.8;
 const circleSize = 10;
 
 fontSize = 14;
